@@ -153,37 +153,6 @@ export default class NewPage {
     });
   }
 
-  // async #getAddressFromCoordinates(lat, lng) {
-  //   const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=14&addressdetails=1`;
-
-  //   try {
-  //     const response = await fetch(url, {
-  //       headers: {
-  //         "User-Agent": "CeritaApp/1.0 (admin@ceritaapp.local)",
-  //       },
-  //     });
-
-  //     if (!response.ok) throw new Error("Gagal fetch data");
-
-  //     const data = await response.json();
-  //     const address = data.address;
-
-  //     return {
-  //       desa:
-  //         address.village ||
-  //         address.hamlet ||
-  //         address.suburb ||
-  //         address.neighbourhood ||
-  //         address.quarter ||
-  //         "-",
-  //       kota: address.city || address.town || address.county || "-",
-  //       provinsi: address.state || "-",
-  //     };
-  //   } catch (err) {
-  //     return { desa: "-", kota: "-", provinsi: "-" };
-  //   }
-  // }
-
   async #getAddressFromCoordinates(lat, lng) {
     const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=14&addressdetails=1`;
 
@@ -194,7 +163,6 @@ export default class NewPage {
         },
       });
 
-      // Jika CORS atau fetch gagal, akan dilempar ke catch
       if (!response.ok) throw new Error("Gagal fetch data");
 
       const data = await response.json();
@@ -212,12 +180,7 @@ export default class NewPage {
         provinsi: address.state || "-",
       };
     } catch (err) {
-      console.warn("Gagal mendapatkan alamat (mungkin karena CORS):", err);
-      return {
-        desa: "-",
-        kota: "-",
-        provinsi: "-",
-      };
+      return { desa: "-", kota: "-", provinsi: "-" };
     }
   }
 
