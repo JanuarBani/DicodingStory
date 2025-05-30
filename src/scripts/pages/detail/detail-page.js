@@ -15,13 +15,13 @@ export default class DetailPage {
         ${generateLoaderAbsoluteTemplate()}
       </section>
 
-      <section id="story-detail-map-container" class="my-4" style="height: 600px;"></section>
-
-      <div id="story-detail-map-loading"></div>
-
       <div id="save-actions-container" class="text-center my-3">
         <!-- Tombol akan dirender di sini -->
       </div>
+
+      <section id="story-detail-map-container" class="my-4" style="height: 600px;"></section>
+
+      <div id="story-detail-map-loading"></div>
 
     </div>
   `;

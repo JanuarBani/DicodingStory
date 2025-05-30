@@ -38,6 +38,12 @@ export async function requestNotificationPermission() {
 
 export async function getPushSubscription() {
   const registration = await navigator.serviceWorker.getRegistration();
+  if (!registration) {
+    console.warn(
+      "Service worker belum terdaftar saat getPushSubscription dipanggil."
+    );
+    return null; // atau undefined
+  }
   return await registration.pushManager.getSubscription();
 }
 
@@ -111,8 +117,10 @@ export async function subscribe() {
 }
 
 export async function unsubscribe() {
-  const failureUnsubscribeMessage = "Langganan push notification gagal dinonaktifkan.";
-  const successUnsubscribeMessage = "Langganan push notification berhasil dinonaktifkan.";
+  const failureUnsubscribeMessage =
+    "Langganan push notification gagal dinonaktifkan.";
+  const successUnsubscribeMessage =
+    "Langganan push notification berhasil dinonaktifkan.";
 
   try {
     const token = getAccessToken();
@@ -123,7 +131,9 @@ export async function unsubscribe() {
 
     const pushSubscription = await getPushSubscription();
     if (!pushSubscription) {
-      alert("Tidak bisa memutus langganan push notification karena belum berlangganan sebelumnya.");
+      alert(
+        "Tidak bisa memutus langganan push notification karena belum berlangganan sebelumnya."
+      );
       return;
     }
 
@@ -138,7 +148,9 @@ export async function unsubscribe() {
 
     const unsubscribed = await pushSubscription.unsubscribe();
     if (unsubscribed === false) {
-      console.warn("unsubscribe: pushSubscription.unsubscribe() returned false, but continuing anyway.");
+      console.warn(
+        "unsubscribe: pushSubscription.unsubscribe() returned false, but continuing anyway."
+      );
     }
 
     alert(successUnsubscribeMessage);
@@ -147,4 +159,3 @@ export async function unsubscribe() {
     console.error("unsubscribe: error:", error);
   }
 }
-

@@ -1,8 +1,9 @@
+// webpack.prod.js
+const path = require("path");
 const common = require("./webpack.common.js");
 const { merge } = require("webpack-merge");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const path = require("path");
 const { InjectManifest } = require("workbox-webpack-plugin");
 
 module.exports = merge(common, {
@@ -16,20 +17,18 @@ module.exports = merge(common, {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        use: [
-          {
-            loader: "babel-loader",
-            options: {
-              presets: ["@babel/preset-env"],
-            },
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env"],
           },
-        ],
+        },
       },
     ],
   },
   optimization: {
     splitChunks: {
-      chunks: "all", // Memisahkan vendor dan kode yang shared
+      chunks: "all",
     },
   },
   plugins: [

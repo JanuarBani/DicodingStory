@@ -157,8 +157,8 @@
   }
   .story-card,
   .add-story-card {
-    width: 150px;
-    padding: 8px;
+    width: 100px;
+    padding: 3px;
   }
 
   .story-content {

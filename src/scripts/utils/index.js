@@ -134,23 +134,26 @@ export function transitionHelper({ skipTransition = false, updateDOM }) {
 
   return transition;
 }
-
 export function isServiceWorkerAvailable() {
   return "serviceWorker" in navigator;
 }
 
 export async function registerServiceWorker() {
   if (!isServiceWorkerAvailable()) {
-    console.log("Service Worker API unsupported");
+    console.warn("Service Worker API tidak didukung oleh browser.");
     return;
   }
 
-  try {
-    const registration = await navigator.serviceWorker.register(
-      "/sw.bundle.js"
-    );
-    console.log("Service worker telah terpasang", registration);
-  } catch (error) {
-    console.log("Failed to install service worker:", error);
-  }
+  window.addEventListener("load", async () => {
+    try {
+      const swPath = `${window.location.origin}${
+        window.location.pathname.replace(/\/[^/]*$/, "/") + "sw.bundle.js"
+      }`;
+
+      const registration = await navigator.serviceWorker.register(swPath);
+      console.log("✅ Service Worker berhasil didaftarkan:", registration);
+    } catch (error) {
+      console.error("❌ Gagal memasang Service Worker:", error);
+    }
+  });
 }

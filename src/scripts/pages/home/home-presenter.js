@@ -13,7 +13,7 @@ export default class HomePresenter {
     this.#view.showLoading();
     try {
       const token = getAccessToken();
-      const response = await this.#model.getAllStories(1, 25, 1, token);
+      const response = await this.#model.getAllStories(1, 50, 1, token);
 
       if (response.error) {
         this.#view.populateStoriesListError(response.message);
